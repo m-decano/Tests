@@ -1,0 +1,43 @@
+package foo;
+
+public class InvestementGrowth {
+	
+	public static double predictedGrowth(int initialFunds,
+										int annualContribution,
+										String strategy,
+										double[] annualPredictions) {
+		
+		double growth = 0;
+		double portfolio = initialFunds;
+		
+		for(double g:annualPredictions) {
+			growth = (g/100)+1;
+		
+			switch(strategy) {
+			case "low":
+				portfolio = portfolio *Math.pow(growth, 0.5);
+				portfolio += annualContribution;
+				break;
+			case "medium":
+				portfolio *= growth;
+				portfolio += annualContribution;
+				break;
+			case "high":
+				portfolio *=Math.pow(growth, 2);
+				portfolio +=annualContribution;
+				break;
+			}
+		}
+		
+		return (int) Math.round(portfolio);
+	}
+		
+
+	public static void main(String[] args) {
+		double[] annualPredictions = { 5.3, 10.7, -4.5, 1.2 };
+		
+		//System.out.println(predictedGrowth(100000,5000,"high",annualPredictions));
+		System.out.println(predictedGrowth(100000,5000,"medium",annualPredictions));
+
+	}
+}
